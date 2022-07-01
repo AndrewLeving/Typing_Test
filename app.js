@@ -24,6 +24,10 @@ var app = new Vue({
             let endTime = this.getTime();
             let endSecond = endTime.second - this.startTime.second;
             let endCentisecond = endTime.centisecond - this.startTime.centisecond;
+            this.totalTime = {
+                second: endSecond,
+                centisecond: endCentisecond,
+            }
 
         },
         resetTest: function () {
