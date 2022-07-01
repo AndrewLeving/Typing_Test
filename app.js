@@ -13,7 +13,7 @@ var app = new Vue({
         startTime: 0,
         totalTime: 0,
         started: false,
-        highScore: 1000,
+        highScore: 0,
     },
     methods: {
         startRace: function () {
@@ -58,7 +58,9 @@ var app = new Vue({
             // you probably wanna use your variable here in place of these awful ones
             if (this.raceSentence == this.userSentence) {
                 this.calculateTotalTime();
-                if (this.highScore > this.totalTime) {
+                if (this.highScore == 0) {
+                    this.highScore = this.totalTime;
+                } else if (this.highScore > this.totalTime) {
                     this.highScore = this.totalTime;
                 }
                 return true;
