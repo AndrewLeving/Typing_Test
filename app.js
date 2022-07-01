@@ -11,7 +11,10 @@ var app = new Vue({
         raceSentence: "",
         userSentence: "",
         startTime: {},
-        totalTime: {},
+        totalTime: {
+            second: 0,
+            centisecond: 0,
+        },
     },
     methods: {
         startRace: function () {
@@ -24,10 +27,8 @@ var app = new Vue({
             let endTime = this.getTime();
             let endSecond = endTime.second - this.startTime.second;
             let endCentisecond = endTime.centisecond - this.startTime.centisecond;
-            this.totalTime = {
-                second: endSecond,
-                centisecond: endCentisecond,
-            }
+            this.totalTime.second = endSecond;
+            this.totalTime.centisecond = endCentisecond;
 
         },
         resetTest: function () {
