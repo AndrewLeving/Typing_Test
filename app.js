@@ -65,6 +65,7 @@ var app = new Vue({
                 this.calculateTotalTime();
                 return true;
             } else {
+                this.startRace();
                 return false;
             }
         }
