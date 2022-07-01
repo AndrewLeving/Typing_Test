@@ -11,8 +11,8 @@
         <h3>{{ raceSentence }}</h3>
         <input type="text" v-model="userSentence">
         <h3>Total time: {{ totalTime }}</h3>
-        <button @click="resetTest">Reset Test with same sentence</button>
-        <button @click="resetWithNewSentence">Reset Text with new sentence</button>
+        <button @click="resetTest" v-show="raceSentence == userSentence">Reset Test with same sentence</button>
+        <button @click="resetWithNewSentence" v-show="raceSentence == userSentence">Reset Text with new sentence</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script src="app.js"></script>
