@@ -14,20 +14,20 @@ var app = new Vue({
         totalTime: 0,
         started: false,
         highScore: 0,
+        timer: undefined,
     },
     methods: {
         startRace: function () {
             this.startTime = this.getTime();
+            this.timer = setInterval(() => {
+                let endTime = this.getTime();
+                let endSecond = endTime - this.startTime;
+                this.totalTime = Math.floor(endSecond * 100) / 100;
+            }, 10);
             this.started = true;
         },
         getRandomSentence: function () {
             this.raceSentence = SENTENCES[Math.floor(Math.random() * SENTENCES.length)]
-        },
-        calculateTotalTime: function () {
-            let endTime = this.getTime();
-            let endSecond = endTime - this.startTime;
-            this.totalTime = Math.floor(endSecond * 100) / 100;
-
         },
         resetTest: function () {
             this.startTime = 0;
@@ -57,7 +57,7 @@ var app = new Vue({
         finishedTyping: function () {
             // you probably wanna use your variable here in place of these awful ones
             if (this.raceSentence == this.userSentence) {
-                this.calculateTotalTime();
+                clearInterval(this.timer);
                 if (this.highScore == 0) {
                     this.highScore = this.totalTime;
                 } else if (this.highScore > this.totalTime) {
@@ -70,7 +70,8 @@ var app = new Vue({
             } else {
                 return false;
             }
-        }
+        },
+
     },
     created: function () {
         this.getRandomSentence();
