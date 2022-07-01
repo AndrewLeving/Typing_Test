@@ -16,13 +16,20 @@ var app = new Vue({
         startRace: function () {
         },
         getRandomSentence: function () {
-            return SENTENCES[Math.floor(Math.random() * SENTENCES.length)]
+            this.raceSentence = SENTENCES[Math.floor(Math.random() * SENTENCES.length)]
         },
         calculateTotalTime: function () {
         },
         resetTest: function () {
+            this.startTime[0] = 0;
+            this.startTime[1] = 0;
+            this.userSentence = "";
         },
         resetWithNewSentence: function () {
+            this.getRandomSentence();
+            this.startTime[0] = 0;
+            this.startTime[1] = 0;
+            this.userSentence = "";
         },
         getTime: function () {
             const centisecond = 10;
@@ -49,6 +56,7 @@ var app = new Vue({
         }
     },
     created: function () {
+        this.getRandomSentence();
     }
 });
 
