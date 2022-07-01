@@ -10,50 +10,44 @@ var app = new Vue({
         raceSentences: SENTENCES,
         raceSentence: "",
         userSentence: "",
-        startTime: {},
-        totalTime: {
-            second: 0,
-            centisecond: 0,
-        },
+        startTime: 0,
+        totalTime: 0,
+        started: false,
     },
     methods: {
         startRace: function () {
             this.startTime = this.getTime();
+            this.started = true;
         },
         getRandomSentence: function () {
             this.raceSentence = SENTENCES[Math.floor(Math.random() * SENTENCES.length)]
         },
         calculateTotalTime: function () {
             let endTime = this.getTime();
-            let endSecond = endTime.second - this.startTime.second;
-            let endCentisecond = endTime.centisecond - this.startTime.centisecond;
-            this.totalTime.second = endSecond;
-            this.totalTime.centisecond = endCentisecond;
+            let endSecond = endTime - this.startTime;
+            this.totalTime = Math.floor(endSecond * 100) / 100;
 
         },
         resetTest: function () {
-            this.startTime[0] = 0;
-            this.startTime[1] = 0;
+            this.startTime = 0;
+            this.totalTime = 0;
             this.userSentence = "";
+            this.started = false;
         },
         resetWithNewSentence: function () {
             this.getRandomSentence();
-            this.startTime[0] = 0;
-            this.startTime[1] = 0;
+            this.startTime = 0;
+            this.totalTime = 0;
             this.userSentence = "";
+            this.started = false;
         },
         getTime: function () {
             const centisecond = 10;
-            const second = 1000;
 
-            // Divide Time with a year
+            // Divide Time with a centisecond
             const d = new Date();
-            let seconds = Math.round(d.getTime() / second);
-            let centiseconds = Math.round(d.getTime() / centisecond);
-            return {
-                second: seconds,
-                centisecond: centiseconds
-            }
+            let seconds = (Math.floor(d.getTime() / centisecond)) / 100;
+            return seconds;
         }
     },
     computed: {
@@ -64,8 +58,10 @@ var app = new Vue({
             if (this.raceSentence == this.userSentence) {
                 this.calculateTotalTime();
                 return true;
-            } else {
+            } else if (this.userSentence != "" && !this.started) {
                 this.startRace();
+                return false;
+            } else {
                 return false;
             }
         }
