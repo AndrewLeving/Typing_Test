@@ -21,7 +21,7 @@ var app = new Vue({
             this.raceSentence = SENTENCES[Math.floor(Math.random() * SENTENCES.length)]
         },
         calculateTotalTime: function () {
-            let endTime = getTime();
+            let endTime = this.getTime();
             let endSecond = endTime.second - this.startTime.second;
             let endCentisecond = endTime.centisecond - this.startTime.centisecond;
             this.totalTime = {
