@@ -7,6 +7,10 @@ const SENTENCES = [
 var app = new Vue({
     el: "#app",
     data: {
+        raceSentences: SENTENCES,
+        raceSentence: "",
+        userSentence: "",
+        startTime: [],
     },
     methods: {
         startRace: function () {
@@ -18,6 +22,16 @@ var app = new Vue({
         resetTest: function () {
         },
         resetWithNewSentence: function () {
+        },
+        getTime: function () {
+            const centisecond = 10;
+            const second = 1000;
+
+            // Divide Time with a year
+            const d = new Date();
+            let seconds = Math.round(d.getTime() / second);
+            let centiseconds = Math.round(d.getTime() / centisecond);
+            return [seconds, centiseconds]
         }
     },
     computed: {
