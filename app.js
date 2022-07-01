@@ -12,6 +12,7 @@ var app = new Vue({
         startRace: function () {
         },
         getRandomSentence: function () {
+            return SENTENCES[Math.floor(Math.random() * SENTENCES.length)]
         },
         calculateTotalTime: function () {
         },
