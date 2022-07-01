@@ -11,6 +11,7 @@
         <h3>{{ raceSentence }}</h3>
         <input type="text" v-model="userSentence" v-bind:disabled="finishedTyping">
         <h3>Total time: {{ totalTime }}s</h3>
+        <h3 v-show="highScore < 1000">Highscore: {{ highScore }}s</h3>
         <button @click="resetTest" v-if="finishedTyping">Reset Test with same sentence</button>
         <button @click="resetWithNewSentence" v-if="finishedTyping">Reset Text with new sentence</button>
     </div>
