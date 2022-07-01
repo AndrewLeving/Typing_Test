@@ -21,7 +21,7 @@ var app = new Vue({
             this.raceSentence = SENTENCES[Math.floor(Math.random() * SENTENCES.length)]
         },
         calculateTotalTime: function () {
-            let endTime = getTime();
+            let endTime = this.getTime();
             let endSecond = endTime.second - this.startTime.second;
             let endCentisecond = endTime.centisecond - this.startTime.centisecond;
 
@@ -56,7 +56,7 @@ var app = new Vue({
         // use it like a variable (v-if="finishedTyping")
         finishedTyping: function () {
             // you probably wanna use your variable here in place of these awful ones
-            if (this.SENTENCE_TO_BE_TYPED == this.SENTENCE_USER_IS_TYPING) {
+            if (this.raceSentence == this.userSentence) {
                 this.calculateTotalTime();
                 return true;
             } else {
