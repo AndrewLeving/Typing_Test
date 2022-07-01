@@ -11,7 +11,7 @@ var app = new Vue({
         raceSentence: "",
         userSentence: "",
         startTime: 0,
-        totalTime: 0,
+        finishTime: 0,
         started: false,
     },
     methods: {
@@ -25,19 +25,19 @@ var app = new Vue({
         calculateTotalTime: function () {
             let endTime = this.getTime();
             let endSecond = endTime - this.startTime;
-            this.totalTime = Math.floor(endSecond * 100) / 100;
-
+            this.finishTime = Math.floor(endSecond * 100) / 100;
+            return Math.floor(endSecond * 100) / 100;
         },
         resetTest: function () {
             this.startTime = 0;
-            this.totalTime = 0;
+            this.finishTime = 0;
             this.userSentence = "";
             this.started = false;
         },
         resetWithNewSentence: function () {
             this.getRandomSentence();
             this.startTime = 0;
-            this.totalTime = 0;
+            this.finishTime = 0;
             this.userSentence = "";
             this.started = false;
         },
@@ -57,12 +57,21 @@ var app = new Vue({
             // you probably wanna use your variable here in place of these awful ones
             if (this.raceSentence == this.userSentence) {
                 this.calculateTotalTime();
+                this.started = false;
                 return true;
             } else if (this.userSentence != "" && !this.started) {
                 this.startRace();
                 return false;
             } else {
                 return false;
+            }
+        },
+        totalTime: function () {
+            if (this.started == true) {
+                return this.calculateTotalTime();
+            }
+            else {
+                return this.finishTime;
             }
         }
     },
