@@ -10,15 +10,21 @@ var app = new Vue({
         raceSentences: SENTENCES,
         raceSentence: "",
         userSentence: "",
-        startTime: [],
+        startTime: {},
+        totalTime: {},
     },
     methods: {
         startRace: function () {
+            this.startTime = this.getTime();
         },
         getRandomSentence: function () {
             return SENTENCES[Math.floor(Math.random() * SENTENCES.length)]
         },
         calculateTotalTime: function () {
+            let endTime = getTime();
+            let endSecond = endTime.second - this.startTime.second;
+            let endCentisecond = endTime.centisecond - this.startTime.centisecond;
+
         },
         resetTest: function () {
         },
@@ -32,7 +38,10 @@ var app = new Vue({
             const d = new Date();
             let seconds = Math.round(d.getTime() / second);
             let centiseconds = Math.round(d.getTime() / centisecond);
-            return [seconds, centiseconds]
+            return {
+                second: seconds,
+                centisecond: centiseconds
+            }
         }
     },
     computed: {
